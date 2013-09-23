@@ -23,6 +23,7 @@ void loop()
       index++; // Increment where to write next
       inData[index] = '\0'; // Null terminate the string
     }
+    delay(10) // Need a short delay for serial to catch up
   }
   index = 0;
   Serial.println(inData);
