@@ -9,22 +9,25 @@ void setup()
 {
     Serial.begin(9600);
     while(!Serial);
+    Serial.println("Read-Write test");
 }
 
 void loop()
 {
-  Serial.println("Read-Write test");
-  while(Serial.available() > 0) // Read if there is data
+  if(Serial.available())
   {
-    if(index < (buff-1)) // One less than the size of the array
+    while(Serial.available() > 0) // Read if there is data
     {
-      inChar = Serial.read(); // Read a character
-      inData[index] = inChar; // Store it
-      index++; // Increment where to write next
-      inData[index] = '\0'; // Null terminate the string
+      if(index < (buff-1)) // One less than the size of the array
+      {
+        inChar = Serial.read(); // Read a character
+        inData[index] = inChar; // Store it
+        index++; // Increment where to write next
+        inData[index] = '\0'; // Null terminate the string
+      }
+      delay(10) // Need a short delay for serial to catch up
     }
-    delay(10) // Need a short delay for serial to catch up
+    index = 0;
+    Serial.println(inData);
   }
-  index = 0;
-  Serial.println(inData);
 }
